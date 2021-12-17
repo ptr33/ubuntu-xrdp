@@ -71,7 +71,12 @@ RUN apt -y full-upgrade && apt-get install -y \
   xorgxrdp \
   xprintidle \
   xrdp \
-  $ADDITIONAL_PACKAGES && \
+  $ADDITIONAL_PACKAGES \
+  curl && \
+  echo 'deb http://download.opensuse.org/repositories/graphics:/darktable:/stable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable:stable.list && \
+  curl -fsSL https://download.opensuse.org/repositories/graphics:darktable:stable/xUbuntu_20.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics_darktable_stable.gpg > /dev/null && \
+  sudo apt update && \
+  sudo apt install -y darktable && \
   apt remove -y light-locker xscreensaver && \
   apt autoremove -y && \
   rm -rf /var/cache/apt /var/lib/apt/lists && \
